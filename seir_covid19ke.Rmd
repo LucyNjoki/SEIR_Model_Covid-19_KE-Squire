@@ -1,0 +1,95 @@
+---
+title:  "Age-structured Stochastic SEIR Modelling Covid-19 Pandemic in Kenya"
+output: html_document
+---
+
+## Age-structured Stochastic SEIR Modelling Covid-19 Pandemic in Kenya
+
+Authors: Ms. Lucy Njoki Njuki
+
+Affiliation: MSc Statistics and Data Science(Biostatistics) student @ UHasselt
+
+Acknowledge: Prof. Thomas N.O. Achia
+
+
+#### Introduction
+
+The first COVID 19 case reported in Kenya was March 13, 2020. The government then announced the closure of schools on March 15, 2020, and social gatherings were banned on 25 March. In April, a partial lockdown was imposed in Nairobi and Mombasa. On June 6, 2020, a dusk-to-dawn curfew was extended. The nationwide curfew was extended to date with hours of lockdown varying in the 47 counties; depending on the number of infections in the county. Mass vaccination commenced on March 5, 2021 - _AstraZeneca_ vaccine. On March 26, 2021, disease-infected areas were declared (Machakos, Nairobi, Kajiado, Nakuru and Kiambu). However, this was lifted and movement across counties was allowed in April 2021.
+
+The model aims to simulate the Covid-19 death data for Kenya to reveal the impacts of different control interventions on the trend of Covid-19. To add on, the app is aimed to show the descriptive state of the disease using reported data.
+
+#### Descriptive graphs
+
+The trend for daily reported confirmed cases has fluctuated over time, and three distinguished peaks are observed.  The highest number of daily reported deaths was 41 deaths in 2020-11-15. A similar trend of the reported deaths is observed as that of confirmed cases. The trend shows that the rate of recovery is slow but it drastically increases at specific time points.
+
+#### Age-structured Stochastic SEIR Model using R-squire library
+
+Adopting the UK MRC R-squire model that was developed for the following purpose:
+
+A stochastic age-structured SEIR model incorporating explicit passage through health care settings and explicit progression through disease severity stages. The ability to calibrate the model to different epidemic start-dates based on available death data. Simulate the impacts of different control interventions (including general social distancing, specific shielding of elderly populations, and more stringent suppression strategies).
+
+#### Model Structure
+
+The infectious diseases group is categorised into different stages indicating disease progress through different pathways:
+
+* S = Susceptibles
+
+* E = Exposed (Latent Infection)
+
+* IMild = Mild Infections (Not Requiring Hospitalisation) – asymptomatic infection is included
+
+* ICase = Infections that will require hospitalisation
+
+* IHospital = Hospitalised Infection (General Hospital Bed is required)
+
+* IICU = Hospitalised Infection in critical care/ICU (Requires critical care/ICU Bed)
+
+* IRec = Hospitalised Infection Recovering from critical care/ICU Stay (Requires General Hospital Bed)
+
+* R = Recovered
+
+* D = Dead
+
+I took the basic reproduction number($R_{0}$) on an interval of 1 and 1.5 which differs from what other studies used $R_{0}$ of 2 to 4 (Nigeria CDC, 2020; Zhao et.al, 2020).The basic reproduction number, $R_{0}$ is a measure that shows potential disease spread in a population. Mathematically, $R_{0}$ is a threshold for the stability of a disease-free balance and is associated with the peak and final size of an epidemic (Van & Watmough, 2008).
+
+Additionally, the baseline count of ICU and hospital beds is 38 and 1893 respectively since the model can track dynamically available hospital and ICU beds over time.
+
+The change date for basic reproduction number in the model was set as June 6, 2020 - dusk-to-dawn curfew extended.
+
+The different interventions imposed include:
+
+* Unmitigated scenario: model using baseline parameters and no control.
+
+* Scenario 1: Set a 20% reduction in the contact matrix after 2 days.
+
+* Scenario 2: Set a 50% reduction in the contact matrix after 2 days.
+
+#### Model Diagnostics
+
+The diagnostic model plots shows a poor fit: the model depends on specific must parameters which could not have been the case in Kenya. Hence, further investigations are needed.
+
+#### Conclusion
+
+The app achieved to simulate Covid-19 death data among other parameters in the two scenarios which shows that the number of cases and deaths decline with a decrease in the contacts. However, further research is required to see what specific model parameters work for Kenya - to obtained a good model fit. Secondly, the descriptive graphs showed the trend of daily reported confirmed cases, deaths and recovered fluctuate over time in Kenya.
+
+
+#### References
+
+1. [COVID-19 pandemic in Kenya](https://en.wikipedia.org/wiki/COVID-19_pandemic_in_Kenya)
+
+2. [epicookbook sir-stochastic-discretestate-discretetime](http://epirecip.es/epicookbook/chapters/sir-stochastic-discretestate-discretetime/r_odin)
+
+3. Nigeria Center for Disease Control. Coronavirus disease (COVID-19) situation reports. 2020. https://ncdc.gov.ng/. Assessed 5 April , 2020.
+
+4. [odin cran r package](https://cran.r-project.org/web/packages/odin/vignettes/discrete.html)
+
+5. [squire-github](https://mrc-ide.github.io/squire/)
+
+6. [squire-model-parameters](https://mrc-ide.github.io/squire/articles/parameters.html)
+
+7. [tidycovid19](https://joachim-gassen.github.io/2020/05/tidycovid19-new-data-and-doc/)
+
+8. Van den Driessche, P., & Watmough, J. (2008). Further notes on the basic reproduction number. In Mathematical epidemiology (pp. 159-178). Springer, Berlin, Heidelberg.
+
+9. Zhao S, Lin Q, Ran J, Musa SS, Yan G, Wang W, et al. Preliminary estimation of the basic reproduction number of novel coronavirus (2019-nCoV) in China, from 2019 to 2020: a data-driven analysis in the early phase of the
+outbreak. Int J Infect Dis. 2020;92:214–7. https://doi.org/10.1016/j.ijid.2020.01. 050.
